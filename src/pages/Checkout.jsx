@@ -206,9 +206,12 @@ const Checkouts = () => {
 
   const handleSubmit = async () => {
     const res = await updateCheckoutStatus(orderId, orderStatus);
+    if(res){
+
+      getAllCheckout();
+    }
     setShowEditModal(false);
     toast.success(res.data.message);
-    getAllCheckout();
   };
   return (
     <>
