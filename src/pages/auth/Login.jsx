@@ -156,7 +156,7 @@ const Login = () => {
             </div>
           </div>
 
-          <div className="flex items-center justify-end">
+          {/* <div className="flex items-center justify-end">
             <div className="text-sm">
               <Link
                 to={AUTH_ROUTES.FORGOT_PASSWORD}
@@ -165,7 +165,7 @@ const Login = () => {
                 Forgot your password?
               </Link>
             </div>
-          </div>
+          </div> */}
 
           <div>
             <button

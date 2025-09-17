@@ -14,9 +14,9 @@ export const COLOR_CONFIG = {
   // Primary color (required) - Main brand color
   primary: {
     name: "Dark Pink",
-    hex: "#F5276C",
+    hex: "#C100FF",
     rgb: "198, 13, 249",
-    enabled: true, // Set to false to disable secondary color
+    enabled: false, // Set to false to disable secondary color
   },
   // Secondary color (optional) - Accent color
   secondary: {
@@ -40,7 +40,7 @@ export const THEME_OPTIONS = {
 
 // API Configuration
 export const API_CONFIG = {
-  baseURL: import.meta.env.VITE_BASE_URL || "http://localhost:8080",
+  baseURL: import.meta.env.VITE_BASE_URL || "https://1b75nbwh-8000.inc1.devtunnels.ms",
   timeout: 100000,
   headers: {
     "Content-Type": "application/json",
