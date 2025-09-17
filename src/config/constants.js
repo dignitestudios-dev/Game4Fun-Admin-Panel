@@ -102,14 +102,14 @@ export const MENU_ITEMS = [
   {
     id: "faq",
     label: "FAQ",
-    icon: "CircleQuestionMark",
+    icon: "TextQuote",
     path: "/faq",
     children: [],
   },
   {
     id: "quotes",
     label: "Quote",
-    icon: "MessageSquareQuote",
+    icon: "Quote",
     path: "/quotes",
     children: [],
   },
