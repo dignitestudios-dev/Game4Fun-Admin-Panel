@@ -92,13 +92,13 @@ export const MENU_ITEMS = [
       // { id: "categories", label: "Categories", path: "/products/categories" },
     ],
   },
-  {
-    id: "orders",
-    label: "Orders",
-    icon: "ShoppingCart",
-    path: "/orders",
-    children: [],
-  },
+  // {
+  //   id: "orders",
+  //   label: "Orders",
+  //   icon: "ShoppingCart",
+  //   path: "/orders",
+  //   children: [],
+  // },
   {
     id: "faq",
     label: "FAQ",

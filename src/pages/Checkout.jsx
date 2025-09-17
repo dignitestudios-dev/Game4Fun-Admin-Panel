@@ -233,78 +233,80 @@ const Checkouts = () => {
             exportable
           />
 
-          <Modal
-            isOpen={showEditModal}
-            onClose={() => setShowEditModal(false)}
-            title="Update Order Status"
-            size="md"
-          >
-            <div className="space-y-6">
-              {/* Customer Info (Read-only) */}
-              <div className="space-y-2">
-                <p className="text-sm text-white">
-                  <strong>Customer:</strong> {editingOrder?.firstName}{" "}
-                  {editingOrder?.lastName}
-                </p>
-                <p className="text-sm text-white">
-                  <strong>Email:</strong> {editingOrder?.user?.email}
-                </p>
-                <p className="text-sm text-white">
-                  <strong>Price:</strong> {formatCurrency(editingOrder?.price)}
-                </p>
-                <p className="text-sm text-white">
-                  <strong>Address:</strong>{" "}
-                  {`${editingOrder?.address}, ${editingOrder?.city}, ${editingOrder?.country}, ${editingOrder?.zipCode}`}
-                </p>
-                <p className="text-sm text-white">
-                  <strong>Created:</strong>{" "}
-                  {formatDate(editingOrder?.createdAt)}
-                </p>
-              </div>
+        <Modal
+  isOpen={showEditModal}
+  onClose={() => setShowEditModal(false)}
+  title="Update Order Status"
+  size="md"
+>
+  <div className="space-y-6">
+    {/* Customer Info (Read-only) */}
+    <div className="space-y-2">
+      <p className="text-sm text-gray-700 dark:text-white">
+        <strong>Customer:</strong> {editingOrder?.firstName}{" "}
+        {editingOrder?.lastName}
+      </p>
+      <p className="text-sm text-gray-700 dark:text-white">
+        <strong>Email:</strong> {editingOrder?.user?.email}
+      </p>
+      <p className="text-sm text-gray-700 dark:text-white">
+        <strong>Price:</strong> {formatCurrency(editingOrder?.price)}
+      </p>
+      <p className="text-sm text-gray-700 dark:text-white">
+        <strong>Address:</strong>{" "}
+        {`${editingOrder?.address}, ${editingOrder?.city}, ${editingOrder?.country}, ${editingOrder?.zipCode}`}
+      </p>
+      <p className="text-sm text-gray-700 dark:text-white">
+        <strong>Created:</strong> {formatDate(editingOrder?.createdAt)}
+      </p>
+    </div>
 
-              {/* Editable Field: Status */}
-              <div>
-                <label className="block text-sm font-medium text-gray-200 mb-1">
-                  Order Status
-                </label>
-                <select
-                  value={orderStatus}
-                  onChange={(e) => setOrderStatus(e.target.value)}
-                  className="w-full rounded-md border border-gray-600 bg-gray-800 px-3 py-2 text-sm text-white focus:border-pink-500 focus:ring-pink-500"
-                >
-                  <option value="active">Active</option>
-                  <option value="delivered">Delivered</option>
-                </select>
-              </div>
+    {/* Editable Field: Status */}
+    <div>
+      <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
+        Order Status
+      </label>
+      <select
+        value={orderStatus}
+        onChange={(e) => setOrderStatus(e.target.value)}
+        className="w-full rounded-md border border-gray-300 dark:border-gray-600 
+                   bg-white dark:bg-gray-800 px-3 py-2 text-sm 
+                   text-gray-900 dark:text-white 
+                   focus:border-pink-500 focus:ring-pink-500"
+      >
+        <option value="active">Active</option>
+        <option value="delivered">Delivered</option>
+      </select>
+    </div>
 
-              {/* Actions */}
-              <div className="flex justify-end space-x-3 pt-4">
-                <Button
-                  type="button"
-                  variant="outline"
-                  // disabled={loadingCreateProduct}
-                  onClick={() => setShowEditModal(false)}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type="submit"
-                  onClick={handleSubmit}
-                  className="h-10 flex items-center gap-2"
-                  disabled={checkloader}
-                >
-                  {checkloader ? (
-                    <div className="flex items-center gap-2">
-                      <Loader2 className="animate-spin text-white" />
-                      <span className="text-white">Updating...</span>
-                    </div>
-                  ) : (
-                    "Update Status"
-                  )}
-                </Button>
-              </div>
-            </div>
-          </Modal>
+    {/* Actions */}
+    <div className="flex justify-end space-x-3 pt-4">
+      <Button
+        type="button"
+        variant="outline"
+        onClick={() => setShowEditModal(false)}
+      >
+        Cancel
+      </Button>
+      <Button
+        type="submit"
+        onClick={handleSubmit}
+        className="h-10 flex items-center gap-2"
+        disabled={checkloader}
+      >
+        {checkloader ? (
+          <div className="flex items-center gap-2">
+            <Loader2 className="animate-spin text-white" />
+            <span className="text-white">Updating...</span>
+          </div>
+        ) : (
+          "Update Status"
+        )}
+      </Button>
+    </div>
+  </div>
+</Modal>
+
 
           {/* View Product Modal */}
           <Modal
