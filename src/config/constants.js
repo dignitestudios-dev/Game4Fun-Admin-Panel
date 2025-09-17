@@ -127,19 +127,6 @@ export const MENU_ITEMS = [
     path: "/checkouts",
     children: [],
   },
-  {
-    id: "settings",
-    label: "Settings",
-    icon: "Settings",
-    path: "/settings",
-    children: [
-      {
-        id: "change-password",
-        label: "Change Password",
-        path: "/settings/change-password",
-      },
-    ],
-  },
 ];
 
 // User Roles

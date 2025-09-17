@@ -136,12 +136,6 @@ const FAQ = () => {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => handleEdit(product)}
-            icon={<Edit className="w-4 h-4" />}
-          />
-          <Button
-            variant="ghost"
-            size="sm"
             onClick={() => handleDelete(product._id)}
             disabled={loadingcreateFaq}
             icon={<Trash2 className="w-4 h-4" />}
@@ -370,199 +364,45 @@ const FAQ = () => {
         </Modal>
 
         {/* View Product Modal */}
-        <Modal
-          isOpen={showViewFaqModal}
-          onClose={() => setShowViewFaqModal(false)}
-          title={
-            viewingFaq?.productName
-              ? viewingFaq?.productName
-              : "Product Details"
-          }
-          size="xl"
-        >
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Left Column - Images */}
-            <div>
-              <ImagesGallery images={viewingFaq?.images} />
-            </div>
+      <Modal
+  isOpen={showViewFaqModal}
+  onClose={() => setShowViewFaqModal(false)}
+  title={ "FAQ Details"}
+  size="lg"
+>
+  <div className="space-y-6">
+    {/* Question */}
+    <div className="border-b border-gray-200 dark:border-gray-700 pb-4">
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+        {viewingFaq?.question}
+      </h1>
+    </div>
 
-            {/* Right Column - Product Details */}
-            <div className="space-y-6">
-              {/* Header */}
-              <div className="border-b border-gray-200 dark:border-gray-700 pb-4">
-                <div className="flex items-start justify-between mb-2">
-                  <div>
-                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                      {viewingFaq?.productName}
-                    </h1>
-                    {/* <p className="text-lg text-gray-600 dark:text-gray-300 mt-1">
-                      {viewingFaq?.subtitle}
-                    </p> */}
-                  </div>
-                  {/* <div
-                    className={`px-3 py-1 rounded-full text-sm font-medium ${
-                      viewingFaq?.isActive
-                        ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
-                        : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
-                    }`}
-                  >
-                    {viewingFaq?.isActive ? "Active" : "Inactive"}
-                  </div> */}
-                </div>
+    {/* Answer */}
+    <div>
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+        Answer
+      </h3>
+      <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+        {viewingFaq?.answer}
+      </p>
+    </div>
 
-                {/* <div className="flex items-center space-x-4">
-                  <span className="text-3xl font-bold text-primary-600 dark:text-primary-400">
-                    {formatCurrency(viewingFaq?.price)}
-                  </span>
-                  {viewingFaq?.isFeatured && (
-                    <div className="flex items-center text-yellow-500">
-                      <Star className="w-5 h-5 fill-current" />
-                      <span className="ml-1 text-sm font-medium">Featured</span>
-                    </div>
-                  )}
-                </div> */}
-                <div>
-                  <p className="text-sm text-gray-400">
-                    Price:{" "}
-                    <span className="text-black dark:text-white">
-                      {formatCurrency(viewingFaq?.price)}
-                    </span>
-                  </p>
-                </div>
-              </div>
+    {/* Metadata */}
+    <div className="border-t border-gray-200 dark:border-gray-700 pt-4 text-sm text-gray-500 dark:text-gray-400 space-y-1">
+      <p>
+        <strong>Created:</strong> {formatDate(viewingFaq?.createdAt)}
+      </p>
+      <p>
+        <strong>Last Updated:</strong> {formatDate(viewingFaq?.updatedAt)}
+      </p>
+      <p>
+        <strong>FAQ ID:</strong> {viewingFaq?._id}
+      </p>
+    </div>
+  </div>
+</Modal>
 
-              {/* Description */}
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                  Description
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-                  {viewingFaq?.description}
-                </p>
-
-                {viewingFaq?.details && (
-                  <>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                      Specifications
-                    </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700 dark:text-gray-300">
-                      {Object.entries(viewingFaq.details)
-                        .filter(([key]) => key !== "_id" && key !== "__v") // 🔹 filter out unwanted fields
-                        .map(([key, value]) => (
-                          <div key={key}>
-                            <span className="font-semibold">
-                              {key
-                                .replace(/([A-Z])/g, " $1")
-                                .replace(/^./, (str) => str.toUpperCase())}
-                              :
-                            </span>{" "}
-                            {value}
-                          </div>
-                        ))}
-                    </div>
-                  </>
-                )}
-              </div>
-
-              {/* Product Details Grid */}
-              {/* <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
-                    Category
-                  </h4>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    {viewingFaq?.category?.name}
-                  </p>
-                </div>
-
-                <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
-                    Stock
-                  </h4>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    {viewingFaq?.stock} units
-                  </p>
-                </div>
-              </div> */}
-
-              {/* Colors */}
-              {viewingFaq?.colors && viewingFaq.colors.length > 0 && (
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                    Available Colors
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {viewingFaq.colors.map((color, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1 bg-primary-100/20 text-primary-600 rounded-full text-sm font-medium"
-                      >
-                        {color}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Sizes */}
-              {viewingFaq?.sizes && viewingFaq.sizes.length > 0 && (
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                    Available Sizes
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {viewingFaq.sizes.map((size, index) => (
-                      <Badge key={index} variant="default">
-                        {size}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Receiving Options */}
-              {viewingFaq?.receivingOptions &&
-                viewingFaq.receivingOptions.length > 0 && (
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                      Receiving Options
-                    </h3>
-                    <div className="flex gap-3">
-                      {viewingFaq.receivingOptions.map((option, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center space-x-2 bg-gray-50 dark:bg-gray-800 px-3 py-2 rounded-lg"
-                        >
-                          {option === "delivery" ? (
-                            <Truck className="w-4 h-4 text-primary-500" />
-                          ) : (
-                            <MapPin className="w-4 h-4 text-secondary-500" />
-                          )}
-                          <span className="text-sm font-medium capitalize text-gray-700 dark:text-gray-300">
-                            {option}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-              {/* Metadata */}
-              <div className="border-t border-gray-200 dark:border-gray-700 pt-4 text-sm text-gray-500 dark:text-gray-400 space-y-1">
-                <p>
-                  <strong>Created:</strong> {formatDate(viewingFaq?.createdAt)}
-                </p>
-                <p>
-                  <strong>Last Updated:</strong>{" "}
-                  {formatDate(viewingFaq?.updatedAt)}
-                </p>
-                <p>
-                  <strong>Product ID:</strong> {viewingFaq?._id}
-                </p>
-              </div>
-            </div>
-          </div>
-        </Modal>
       </div>
     </div>
   );

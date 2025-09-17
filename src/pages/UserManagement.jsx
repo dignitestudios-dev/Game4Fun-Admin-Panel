@@ -66,7 +66,7 @@ const UserManagement = () => {
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
             <span className="text-primary-600 font-medium text-sm">
-              {value.charAt(0).toUpperCase()}
+              {value.toUpperCase()}
             </span>
           </div>
           <div>
@@ -430,161 +430,121 @@ const UserManagement = () => {
 
       {/* User Detail Modal */}
       <Modal
-        isOpen={showDetailModal}
-        onClose={() => setShowDetailModal(false)}
-        title="User Details"
-        size="lg"
-      >
-        {selectedUser && (
-          <div className="space-y-6">
-            {/* User Header */}
-            <div className="flex items-center space-x-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center">
-                <span className="text-primary-600 font-bold text-xl">
-                  {selectedUser.name.charAt(0).toUpperCase()}
-                </span>
-              </div>
-              <div className="flex-1">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                  {selectedUser.name}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                  {selectedUser.email}
-                </p>
-                <div className="flex items-center space-x-2 mt-2">
-                  <Badge
-                    variant={
-                      selectedUser.isBlocked
-                        ? "danger"
-                        : selectedUser.status === "active"
-                        ? "success"
-                        : "default"
-                    }
-                  >
-                    {selectedUser.isBlocked ? "Blocked" : selectedUser.status}
-                  </Badge>
-                  <Badge
-                    variant={
-                      selectedUser.role === "admin"
-                        ? "danger"
-                        : selectedUser.role === "manager"
-                        ? "warning"
-                        : "default"
-                    }
-                  >
-                    {selectedUser.role}
-                  </Badge>
-                </div>
-              </div>
+  isOpen={showDetailModal}
+  onClose={() => setShowDetailModal(false)}
+  title="User Details"
+  size="lg"
+>
+  {selectedUser && (
+    <div className="space-y-6">
+      {/* User Header */}
+      <div className="flex items-center space-x-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+        <img
+          src={selectedUser.profilePicture}
+          alt={selectedUser.fullName}
+          className="w-16 h-16 rounded-full object-cover border border-gray-300"
+        />
+        <div className="flex-1">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+            {selectedUser.fullName}
+          </h3>
+          <p className="text-gray-600 dark:text-gray-400">
+            {selectedUser.email}
+          </p>
+          <div className="flex items-center space-x-2 mt-2">
+            <Badge
+              variant={
+                selectedUser.role === "admin"
+                  ? "danger"
+                  : selectedUser.role === "manager"
+                  ? "warning"
+                  : "default"
+              }
+            >
+              {selectedUser.role}
+            </Badge>
+            {selectedUser.isEmailVerified && (
+              <Badge variant="success">Email Verified</Badge>
+            )}
+            {selectedUser.isProfileCompleted && (
+              <Badge variant="info">Profile Completed</Badge>
+            )}
+            {selectedUser.isDeleted && <Badge variant="danger">Deleted</Badge>}
+          </div>
+        </div>
+      </div>
+
+      {/* User Info Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="space-y-4">
+          <h4 className="font-semibold text-gray-900 dark:text-white">
+            Contact Information
+          </h4>
+          <div className="space-y-2">
+            <div>
+              <label className="text-sm font-medium text-gray-500">Phone</label>
+              <p className="text-gray-900 dark:text-white">
+                {selectedUser.phone || "Not provided"}
+              </p>
             </div>
-
-            {/* User Info Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <h4 className="font-semibold text-gray-900 dark:text-white">
-                  Contact Information
-                </h4>
-                <div className="space-y-2">
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">
-                      Phone
-                    </label>
-                    <p className="text-gray-900 dark:text-white">
-                      {selectedUser.phone || "Not provided"}
-                    </p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">
-                      Address
-                    </label>
-                    <p className="text-gray-900 dark:text-white">
-                      {selectedUser.address || "Not provided"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <h4 className="font-semibold text-gray-900 dark:text-white">
-                  Account Statistics
-                </h4>
-                <div className="space-y-2">
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">
-                      Total Transactions
-                    </label>
-                    <p className="text-gray-900 dark:text-white">
-                      {selectedUser.totalTransactions}
-                    </p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">
-                      Total Spent
-                    </label>
-                    <p className="text-gray-900 dark:text-white">
-                      ${selectedUser.totalSpent.toFixed(2)}
-                    </p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">
-                      Member Since
-                    </label>
-                    <p className="text-gray-900 dark:text-white">
-                      {formatDate(selectedUser.createdAt)}
-                    </p>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-500">
-                      Last Login
-                    </label>
-                    <p className="text-gray-900 dark:text-white">
-                      {selectedUser.lastLogin
-                        ? formatDateTime(selectedUser.lastLogin)
-                        : "Never"}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex justify-end space-x-3 pt-4 border-t">
-              <Button
-                variant="outline"
-                onClick={() => handleChat(selectedUser)}
-                icon={<MessageSquare className="w-4 h-4" />}
-              >
-                Start Chat
-              </Button>
-              <Button
-                variant={selectedUser.isBlocked ? "success" : "danger"}
-                onClick={() => {
-                  handleToggleBlock(selectedUser);
-                  setShowDetailModal(false);
-                }}
-                icon={
-                  selectedUser.isBlocked ? (
-                    <Shield className="w-4 h-4" />
-                  ) : (
-                    <ShieldOff className="w-4 h-4" />
-                  )
-                }
-              >
-                {selectedUser.isBlocked ? "Unblock User" : "Block User"}
-              </Button>
-              <Button
-                onClick={() => {
-                  setShowDetailModal(false);
-                  handleEdit(selectedUser);
-                }}
-                icon={<Edit className="w-4 h-4" />}
-              >
-                Edit User
-              </Button>
+            <div>
+              <label className="text-sm font-medium text-gray-500">
+                Address
+              </label>
+              <p className="text-gray-900 dark:text-white">
+                {selectedUser.address || "Not provided"}
+              </p>
             </div>
           </div>
-        )}
-      </Modal>
+        </div>
+
+        <div className="space-y-4">
+          <h4 className="font-semibold text-gray-900 dark:text-white">
+            Account Information
+          </h4>
+          <div className="space-y-2">
+            <div>
+              <label className="text-sm font-medium text-gray-500">
+                Member Since
+              </label>
+              <p className="text-gray-900 dark:text-white">
+                {formatDate(selectedUser.createdAt)}
+              </p>
+            </div>
+            <div>
+              <label className="text-sm font-medium text-gray-500">
+                Last Updated
+              </label>
+              <p className="text-gray-900 dark:text-white">
+                {formatDate(selectedUser.updatedAt)}
+              </p>
+            </div>
+            <div>
+              <label className="text-sm font-medium text-gray-500">User ID</label>
+              <p className="text-gray-900 dark:text-white">
+                {selectedUser._id}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex justify-end space-x-3 pt-4 border-t">
+        <Button
+          onClick={() => {
+            setShowDetailModal(false);
+          
+          }}
+          // icon={<Edit className="w-4 h-4" />}
+        >
+          Close
+        </Button>
+      </div>
+    </div>
+  )}
+</Modal>
+
     </div>
   );
 };
