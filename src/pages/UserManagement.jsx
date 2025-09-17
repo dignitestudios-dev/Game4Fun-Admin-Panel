@@ -66,7 +66,7 @@ const UserManagement = () => {
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
             <span className="text-primary-600 font-medium text-sm">
-              {value.toUpperCase()}
+                 {value && value.charAt(0).toUpperCase()}
             </span>
           </div>
           <div>
