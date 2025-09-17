@@ -13,25 +13,17 @@ import ForgotPassword from "./pages/auth/ForgotPassword";
 
 // Main pages
 import Dashboard from "./pages/Dashboard";
-import Users from "./pages/Users";
-import Analytics from "./pages/Analytics";
 import ChangePassword from "./pages/ChangePassword";
 import Documentation from "./pages/Documentation";
-import Notifications from "./pages/Notifications";
 import Orders from "./pages/Orders";
 import Products from "./pages/Products";
-import Reports from "./pages/Reports";
-import SendEmail from "./pages/SendEmail";
-import SupportTickets from "./pages/SupportTickets";
-import Transactions from "./pages/Transactions";
 import UserManagement from "./pages/UserManagement";
-import ChatSupport from "./pages/ChatSupport";
+
 
 import "./App.css";
 import { Toaster } from "react-hot-toast";
-import Categories from "./pages/Categories";
 import FAQ from "./pages/FAQ";
-import Quote from "./pages/quote";
+import Quote from "./pages/Quote";
 import Checkouts from "./pages/Checkout";
 
 function App() {
