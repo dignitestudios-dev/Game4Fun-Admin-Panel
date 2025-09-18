@@ -95,7 +95,7 @@ const Checkouts = () => {
             <p className="text-sm font-medium text-gray-900 dark:text-white">
               {user?.fullName}
             </p>
-            <p className="text-xs text-white">{user?.email}</p>
+            <p className="text-xs text-gray-900 dark:text-white">{user?.email}</p>
           </div>
         </div>
       ),
