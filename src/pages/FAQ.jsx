@@ -139,7 +139,7 @@ const FAQ = () => {
             variant="ghost"
             size="sm"
             onClick={() => handleDelete(faq._id)}
-            disabled={loadingcreateFaq}
+            disabled={loadingcreateFaq||FaqLoader}
             icon={<Trash2 className="w-4 h-4" />}
           />
         </div>

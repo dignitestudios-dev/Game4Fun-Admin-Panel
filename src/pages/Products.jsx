@@ -75,7 +75,7 @@ const Products = () => {
     deleteProduct,
     getProductById,
     updateSupportedGame,
-    deleteGame
+    deleteGame,
   } = useProductActions();
   const { loading: loadingCategories, categories } = useGetAllCategories(
     "active",
@@ -407,6 +407,23 @@ const Products = () => {
 
   const handleAdd = () => {
     setEditingProduct(null);
+    append({
+      gameName: "",
+      gameDescription: "",
+      gameImages: null, // new field
+      ultraMinimumFPS: "",
+      ultraAverageFPS: "",
+      ultraMaximumFPS: "",
+      highMinimumFPS: "",
+      highAverageFPS: "",
+      highMaximumFPS: "",
+      mediumMinimumFPS: "",
+      mediumAverageFPS: "",
+      mediumMaximumFPS: "",
+      lowMinimumFPS: "",
+      lowAverageFPS: "",
+      lowMaximumFPS: "",
+    });
     reset(defaultValues);
     setShowModal(true);
   };
@@ -560,7 +577,7 @@ const Products = () => {
       setShowModal(false);
     }
   };
-
+  console.log(errors);
   const handleCreateGame = async (data) => {
     const formData = new FormData();
     formData.append("productId", prodId);
@@ -600,10 +617,9 @@ const Products = () => {
     }
   };
 
-
-  const handleDeleteGame =async(id , productId)=>{
+  const handleDeleteGame = async (id, productId) => {
     const success = await deleteGame(id);
-      if (success) {
+    if (success) {
       const res = await getProductById(productId);
       setSingleProduct(res.product);
       setEditProductImages(res.product.images);
@@ -615,9 +631,8 @@ const Products = () => {
           ),
         })
       );
-   
     }
-  } 
+  };
   return (
     <>
       <div className="relative z-[9999]">
@@ -959,7 +974,6 @@ const Products = () => {
                     <div className="flex justify-between items-center mb-2">
                       <h5 className="font-semibold text-gray-200">
                         Game {index + 1}{" "}
-                       
                       </h5>
                       <Button
                         type="button"
@@ -967,7 +981,7 @@ const Products = () => {
                         size="sm"
                         onClick={() => remove(index)}
                       >
-                        <X />
+                        <X className="dark:text-white text-black" />
                       </Button>
                     </div>
 
@@ -1003,7 +1017,9 @@ const Products = () => {
                         />
                       )}
                     />
-
+                    <span className="text-red-600 text-sm">
+                      {errors.games && errors?.games?.[index].gameImage?.message}
+                    </span>
                     {/* FPS Benchmarks */}
                     <h6 className="font-semibold text-gray-300 mt-3">
                       FPS Benchmarks
@@ -1123,6 +1139,9 @@ const Products = () => {
                   />
                 )}
               />
+                <span className="text-red-600 text-sm">
+                      {errors.images?.message}
+                    </span>
 
               {/* Footer Buttons */}
               <div className="flex justify-end space-x-3 pt-4">
@@ -1397,25 +1416,27 @@ const Products = () => {
                       className="border border-gray-600 p-3 rounded-lg flex justify-between items-center"
                     >
                       <span className="text-gray-200">{game.gameName}</span>
-                      <div className="flex gap-2" >
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => {
-                          setProdId(singleProduct._id);
-                          setEditingGame(game); // set selected game for modal
-                          setShowGameModal(true);
-                        }}
-                      >
-                        Edit
-                      </Button>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={()=>handleDeleteGame(game._id , singleProduct._id)}
-                      >
-                        Delete
-                      </Button>
+                      <div className="flex gap-2">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => {
+                            setProdId(singleProduct._id);
+                            setEditingGame(game); // set selected game for modal
+                            setShowGameModal(true);
+                          }}
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() =>
+                            handleDeleteGame(game._id, singleProduct._id)
+                          }
+                        >
+                          Delete
+                        </Button>
                       </div>
                     </div>
                   ))
@@ -1466,27 +1487,27 @@ const Products = () => {
                 )}
               />
               <div className="flex flex-wrap gap-4">
-              {editProductImages.map((prod, idx) => (
-                <div className="flex flex-wrap relative ">
-                  <div className="relative">
-                    <X
-                      size={20}
-                      onClick={() => {
-                        setEditProductImages((prev) =>
-                          prev.filter((img) => img?._id !== prod?._id)
-                        );
-                        setRemoveProductImages((prev) => [...prev, prod._id]);
-                      }}
-                      className="absolute cursor-pointer rounded-full p-1 text-white bg-red-600 top-2 right-2"
-                    />
-                    <img
-                      src={prod.file}
-                      alt="img"
-                      className="w-28 h-28 object-cover"
-                    />
+                {editProductImages.map((prod, idx) => (
+                  <div className="flex flex-wrap relative ">
+                    <div className="relative">
+                      <X
+                        size={20}
+                        onClick={() => {
+                          setEditProductImages((prev) =>
+                            prev.filter((img) => img?._id !== prod?._id)
+                          );
+                          setRemoveProductImages((prev) => [...prev, prod._id]);
+                        }}
+                        className="absolute cursor-pointer rounded-full p-1 text-white bg-red-600 top-2 right-2"
+                      />
+                      <img
+                        src={prod.file}
+                        alt="img"
+                        className="w-28 h-28 object-cover"
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
               </div>
               {/* Actions */}
               <div className="flex justify-end space-x-3 pt-4">

@@ -145,9 +145,10 @@ export const handleError = (error) => {
 };
 
 export const handleSuccess = (message, customMessage) => {
-  toast.success(message || customMessage || "Operation successful");
+  toast.success(message || customMessage || "Operation successful", {
+    style: { textTransform: "capitalize" },
+  });
 };
-
 
 export const appendArrayToFormData = (formData, key, arr) => {
   if (arr && Array.isArray(arr)) {
@@ -162,22 +163,28 @@ export const mapProductToFormValues = (product) => {
     productName: product.productName || "",
     description: product.description || "",
     price: product.price || "",
-    images: product.images?.map(img => ({
-      _id: img._id,
-      url: img.file,   // ✅ use `file` from response
-    })) || [],
+    images:
+      product.images?.map((img) => ({
+        _id: img._id,
+        url: img.file, // ✅ use `file` from response
+      })) || [],
 
     details: {
       cpu: product.details?.cpu || "",
       cpuCase: product.details?.cpuCase || "",
-      cpuCommonAlgorithmsBenchmark: product.details?.cpuCommonAlgorithmsBenchmark || "",
+      cpuCommonAlgorithmsBenchmark:
+        product.details?.cpuCommonAlgorithmsBenchmark || "",
       cpuCooler: product.details?.cpuCooler || "",
-      cpuMathematicalOperationsBenchmark: product.details?.cpuMathematicalOperationsBenchmark || "",
+      cpuMathematicalOperationsBenchmark:
+        product.details?.cpuMathematicalOperationsBenchmark || "",
       cpuMultiCoreBenchmark: product.details?.cpuMultiCoreBenchmark || "",
       diskAppIOBenchmark: product.details?.diskAppIOBenchmark || "",
-      diskRandomAccessBenchmark: product.details?.diskRandomAccessBenchmark || "",
-      diskSeauentialReadBenchmark: product.details?.diskSeauentialReadBenchmark || "",
-      diskSeauentialWriteBenchmark: product.details?.diskSeauentialWriteBenchmark || "",
+      diskRandomAccessBenchmark:
+        product.details?.diskRandomAccessBenchmark || "",
+      diskSeauentialReadBenchmark:
+        product.details?.diskSeauentialReadBenchmark || "",
+      diskSeauentialWriteBenchmark:
+        product.details?.diskSeauentialWriteBenchmark || "",
       gpu: product.details?.gpu || "",
       gpuManufactured: product.details?.gpuManufactured || "",
       graphicCardBenchmark: product.details?.graphicCardBenchmark || "",
@@ -196,29 +203,31 @@ export const mapProductToFormValues = (product) => {
       rgbFans: product.details?.rgbFans || "",
       storage: product.details?.storage || "",
       threeDBrutalistBenchmark: product.details?.threeDBrutalistBenchmark || "",
-      threeDCoastlineOpenGLBenchmark: product.details?.threeDCoastlineOpenGLBenchmark || "",
+      threeDCoastlineOpenGLBenchmark:
+        product.details?.threeDCoastlineOpenGLBenchmark || "",
     },
 
-    supportedGames: product.supportedGames?.map((g) => ({
-      _id:g._id,
-      gameName: g.gameName || "",
-      gameDescription: g.description || "",
-      gameImage: g.image
-        ?  {url: g.image}  // ✅ also fix here (file, not url)
-        : null,
-      ultraMinimumFPS: g.ultraMinimumFPS || "",
-      ultraAverageFPS: g.ultraAverageFPS || "",
-      ultraMaximumFPS: g.ultraMaximumFPS || "",
-      highMinimumFPS: g.highMinimumFPS || "",
-      highAverageFPS: g.highAverageFPS || "",
-      highMaximumFPS: g.highMaximumFPS || "",
-      mediumMinimumFPS: g.mediumMinimumFPS || "",
-      mediumAverageFPS: g.mediumAverageFPS || "",
-      mediumMaximumFPS: g.mediumMaximumFPS || "",
-      lowMinimumFPS: g.lowMinimumFPS || "",
-      lowAverageFPS: g.lowAverageFPS || "",
-      lowMaximumFPS: g.lowMaximumFPS || "",
-    })) || [],
+    supportedGames:
+      product.supportedGames?.map((g) => ({
+        _id: g._id,
+        gameName: g.gameName || "",
+        gameDescription: g.description || "",
+        gameImage: g.image
+          ? { url: g.image } // ✅ also fix here (file, not url)
+          : null,
+        ultraMinimumFPS: g.ultraMinimumFPS || "",
+        ultraAverageFPS: g.ultraAverageFPS || "",
+        ultraMaximumFPS: g.ultraMaximumFPS || "",
+        highMinimumFPS: g.highMinimumFPS || "",
+        highAverageFPS: g.highAverageFPS || "",
+        highMaximumFPS: g.highMaximumFPS || "",
+        mediumMinimumFPS: g.mediumMinimumFPS || "",
+        mediumAverageFPS: g.mediumAverageFPS || "",
+        mediumMaximumFPS: g.mediumMaximumFPS || "",
+        lowMinimumFPS: g.lowMinimumFPS || "",
+        lowAverageFPS: g.lowAverageFPS || "",
+        lowMaximumFPS: g.lowMaximumFPS || "",
+      })) || [],
   };
 };
 
@@ -290,11 +299,16 @@ export const buildCreateFormData = (data = {}) => {
     "threeDCoastlineOpenGLBenchmark",
     data.threeDCoastlineOpenGLBenchmark ?? ""
   );
-  formData.append("threeDBrutalistBenchmark", data.threeDBrutalistBenchmark ?? "");
+  formData.append(
+    "threeDBrutalistBenchmark",
+    data.threeDBrutalistBenchmark ?? ""
+  );
 
   // also include status flags if present
-  if (typeof data.isActive !== "undefined") formData.append("isActive", data.isActive);
-  if (typeof data.isFeatured !== "undefined") formData.append("isFeatured", data.isFeatured);
+  if (typeof data.isActive !== "undefined")
+    formData.append("isActive", data.isActive);
+  if (typeof data.isFeatured !== "undefined")
+    formData.append("isFeatured", data.isFeatured);
 
   // Games array: accept data.games OR data.supportedGames
   const gamesArray = data.games ?? data.supportedGames ?? [];
@@ -346,7 +360,11 @@ export const buildCreateFormData = (data = {}) => {
 // ──────────────────────────────────────────────────────────────────────────────
 // Build FormData for UPDATE (nested `details[...]`, nested games as supportedGames)
 // ──────────────────────────────────────────────────────────────────────────────
-export const buildUpdateFormData = (data = {}, editingProduct, removeProductImages = []) => {
+export const buildUpdateFormData = (
+  data = {},
+  editingProduct,
+  removeProductImages = []
+) => {
   if (!editingProduct || !editingProduct._id) {
     throw new Error("editingProduct with _id is required for update form data");
   }
@@ -438,17 +456,17 @@ export const buildUpdateFormData = (data = {}, editingProduct, removeProductImag
   // });
 
   // Product images: include new Files under "images" and send existing image ids as existingImages[]
-if (data.images?.length) {
-  data.images.forEach((img) => {
-    if (img instanceof File) {
-      // New uploaded image → append binary
-      formData.append("images", img);
-    } 
-  });
-}
+  if (data.images?.length) {
+    data.images.forEach((img) => {
+      if (img instanceof File) {
+        // New uploaded image → append binary
+        formData.append("images", img);
+      }
+    });
+  }
 
   // Remove images list (IDs)
-  if (removeProductImages?.length>0) {
+  if (removeProductImages?.length > 0) {
     removeProductImages.forEach((id, idx) => {
       formData.append(`removeProductImage[${idx}]`, id);
     });
@@ -460,4 +478,3 @@ if (data.images?.length) {
 
   return formData;
 };
-
