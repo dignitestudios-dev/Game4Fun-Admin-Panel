@@ -625,6 +625,8 @@ const Products = () => {
           <GameModal
             isOpen={showGameModal}
             onClose={() => setShowGameModal(false)}
+            loading={loadingProductActions}
+            gameImage={editingGame.image}
             defaultValues={editingGame}
             onSave={(data) => {
               if (editingGame?._id) {

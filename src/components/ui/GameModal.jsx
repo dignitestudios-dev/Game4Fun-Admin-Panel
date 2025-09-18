@@ -4,8 +4,8 @@ import ImageUploader from "./ImageUploader";
 import Input from "./Input";
 import Button from "./Button";
 
-function GameModal({ isOpen, onClose, onSave, defaultValues }) {
-  const { control, register, handleSubmit } = useForm({
+function GameModal({ isOpen, onClose, onSave, defaultValues , loading , gameImage }) {
+  const { control, register, handleSubmit , watch  } = useForm({
     defaultValues: defaultValues || {
       gameName: "",
       description: "",
@@ -24,11 +24,14 @@ function GameModal({ isOpen, onClose, onSave, defaultValues }) {
       lowMaximumFPS: "",
     },
   });
+  const uploadedImage = watch("gamesImages");
 
   const onSubmit = (data) => {
     onSave(data); // call parent to handle create/update
     // onClose();
   };
+
+
 
   return (
     <Modal isOpen={isOpen} className="z-[99999]" onClose={onClose} title={defaultValues ? "Edit Game" : "Add Game"}>
@@ -49,6 +52,10 @@ function GameModal({ isOpen, onClose, onSave, defaultValues }) {
           )}
         />
 
+       {!uploadedImage && gameImage && (
+  <img src={gameImage} alt="image" className="max-h-40 mt-2 rounded" />
+)}
+
         <h6 className="font-semibold text-gray-300 mt-3">FPS Benchmarks</h6>
         {["ultra", "high", "medium", "low"].map((level) => (
           <div key={level} className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
@@ -60,7 +67,7 @@ function GameModal({ isOpen, onClose, onSave, defaultValues }) {
 
         <div className="flex justify-end gap-2">
           <Button type="button" variant="outline" onClick={onClose}>Cancel</Button>
-          <Button type="submit">{defaultValues ? "Update Game" : "Add Game"}</Button>
+          <Button  disabled={loading} type="submit">{defaultValues ? "Update Game" : "Add Game"}</Button>
         </div>
       </form>
     </Modal>
