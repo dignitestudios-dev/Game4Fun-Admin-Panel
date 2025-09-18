@@ -2,42 +2,16 @@ import { useState } from "react";
 import { handleError, handleSuccess } from "../../utils/helpers";
 import { api } from "../../lib/services";
 
-const useGameActions = () => {
+const useFaqActions = () => {
   const [loading, setLoading] = useState(false);
 
-  const updateProduct = async ( productData) => {
-    setLoading(true);
-    try {
-      const response = await api.updateProduct( productData);
-      setLoading(false);
-      handleSuccess(response.message, "Product updated successfully");
-      return response
-    } catch (error) {
-      handleError(error);
-      setLoading(false);
-      return false;
-    }
-  };
-  const updateSupportedGame = async ( productData) => {
-    setLoading(true);
-    try {
-      const response = await api.updateGame( productData);
-      setLoading(false);
-      handleSuccess(response.message, "Product updated successfully");
-      return response
-    } catch (error) {
-      handleError(error);
-      setLoading(false);
-      return false;
-    }
-  };
 
-  const deleteProduct = async (id) => {
+  const deleteFaq = async (id) => {
     setLoading(true);
     try {
-      const response = await api.deleteProduct(id);
+      const response = await api.deleteFaq(id);
       setLoading(false);
-      handleSuccess(response.message, "Product deleted successfully");
+      handleSuccess(response.message, "Faq deleted successfully");
       return response.success;
     } catch (error) {
       handleError(error);
@@ -46,18 +20,9 @@ const useGameActions = () => {
     }
   };
 
-  const getProductById = async (id) => {
-    setLoading(true);
-    try {
-      return await api.getProductById(id);
-    } catch (error) {
-      handleError(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  
 
-  return { loading, updateProduct, deleteProduct, getProductById ,updateSupportedGame };
+  return { loading,  deleteFaq };
 };
 
-export default useGameActions;
+export default useFaqActions;

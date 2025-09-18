@@ -175,6 +175,7 @@ const updateGame = ( productData) =>
 
 const deleteProduct = (id) =>
   apiHandler(() => API.delete(`/product/deleteProduct?productId=${id}`));
+
 const deleteGame = (id) =>
   apiHandler(() => API.delete(`/product/deleteSupportedGame?gameId=${id}`));
 
@@ -200,7 +201,7 @@ const getAllFaqs = (
 const updateFaq = (id, faqData) =>
   apiHandler(() => API.put(`/faq/${id}`, faqData));
 
-const deleteFaq = (id) => apiHandler(() => API.delete(`/faq/${id}`));
+const deleteFaq = (id) => apiHandler(() => API.delete(`/setting/deleteFaq?faqId=${id}`));
 
 const getFaqById = (id) =>
   apiHandler(() => API.get(`/faq/getSingleFaq?faqId=${id}`));
@@ -264,6 +265,7 @@ export const api = {
   getAllProducts,
   getAllCategories,
   getAllUsers,
+  deleteFaq,
   createProduct,
   createCategory,
   createGame,

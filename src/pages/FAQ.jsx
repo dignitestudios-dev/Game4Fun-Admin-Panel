@@ -36,6 +36,7 @@ import StatsCard from "../components/common/StatsCard";
 import toast from "react-hot-toast";
 import useGetAllFaqs from "../hooks/faq/useGetAllFaq";
 import useCreateFaq from "../hooks/faq/useCreateFaq";
+import useFaqActions from "../hooks/faq/useFaqActions";
 
 const FAQ = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -52,6 +53,7 @@ const FAQ = () => {
     pageSize
   );
   const { loading: loadingcreateFaq, createFaq } = useCreateFaq();
+  const {loading:FaqLoader , deleteFaq } = useFaqActions()
   // const {
   //   loading: ,
   //   updateProduct,
@@ -125,18 +127,18 @@ const FAQ = () => {
       key: "actions",
       label: "Actions",
 
-      render: (_, product) => (
+      render: (_, faq) => (
         <div className="flex items-center space-x-2">
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => handleView(product)}
+            onClick={() => handleView(faq)}
             icon={<Eye className="w-4 h-4" />}
           />
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => handleDelete(product._id)}
+            onClick={() => handleDelete(faq._id)}
             disabled={loadingcreateFaq}
             icon={<Trash2 className="w-4 h-4" />}
           />
@@ -197,7 +199,7 @@ const FAQ = () => {
 
   const handleDelete = async (faqId) => {
     console.log(faqId);
-    const success = await deleteProduct(faqId);
+    const success = await deleteFaq(faqId);
     if (success) {
       getAllFaqs();
     }
