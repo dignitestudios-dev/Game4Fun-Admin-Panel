@@ -40,7 +40,7 @@ export const THEME_OPTIONS = {
 
 // API Configuration
 export const API_CONFIG = {
-  baseURL: import.meta.env.VITE_BASE_URL || "https://1b75nbwh-8000.inc1.devtunnels.ms",
+  baseURL: import.meta.env.VITE_BASE_URL || "https://www.game4funpcs.com",
   timeout: 100000,
   headers: {
     "Content-Type": "application/json",
