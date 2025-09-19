@@ -1622,7 +1622,7 @@ const Products = () => {
                       </h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700 dark:text-gray-300">
                         {Object.entries(viewingProduct.details)
-                          .filter(([key]) => key !== "_id" && key !== "__v") // 🔹 filter out unwanted fields
+                          .filter(([key]) => key !== "productId" && key !== "__v" && key !== "_id") 
                           .map(([key, value]) => (
                             <div key={key}>
                               <span className="font-semibold">
