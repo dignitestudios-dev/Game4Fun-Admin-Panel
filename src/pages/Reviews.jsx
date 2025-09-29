@@ -178,7 +178,7 @@ const Reviews = () => {
                 variant="ghost"
                 size="sm"
                 onClick={() => handleUpdateStatus(review._id, "accepted")}
-                //   disabled={loadingUpdateStatus}
+           disabled={ReviewLoader}
                 className="text-green-500 hover:text-green-600"
                 icon={<Check className="w-4 h-4" />}
               />
@@ -186,7 +186,7 @@ const Reviews = () => {
                 variant="ghost"
                 size="sm"
                 onClick={() => handleUpdateStatus(review._id, "rejected")}
-                //   disabled={loadingUpdateStatus}
+               disabled={ReviewLoader}
                 className="text-red-500 hover:text-red-600"
                 icon={<X className="w-4 h-4" />}
               />
@@ -202,7 +202,7 @@ const Reviews = () => {
             variant="ghost"
             size="sm"
             onClick={() => handleDelete(review._id)}
-            //   disabled={loadingUpdateStatus}
+              disabled={ReviewLoader}
             icon={<Trash2 className="w-4 h-4" />}
           />
         </div>
