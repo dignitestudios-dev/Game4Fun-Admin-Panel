@@ -127,6 +127,13 @@ export const MENU_ITEMS = [
     path: "/checkouts",
     children: [],
   },
+  {
+    id: "reviews",
+    label: "Reviews",
+    icon: "Star",
+    path: "/reviews",
+    children: [],
+  },
 ];
 
 // User Roles

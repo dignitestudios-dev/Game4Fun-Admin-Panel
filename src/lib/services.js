@@ -198,10 +198,21 @@ const getAllFaqs = (
   limit = PAGINATION_CONFIG.defaultPageSize
 ) => apiHandler(() => API.get(`/setting/getAllFaqs`));
 
+const getAllReviews = (
+  // search,
+  // status,
+  page = 1,
+  limit = PAGINATION_CONFIG.defaultPageSize
+) => apiHandler(() => API.get(`/admin/getAllReviews?page=${page}&limit=${limit}`));
+
 const updateFaq = (id, faqData) =>
   apiHandler(() => API.put(`/faq/${id}`, faqData));
 
+const updateStatus = (id, status) =>
+  apiHandler(() => API.patch(`/admin/updateReviewStatus`, {reviewId:id , status}));
+
 const deleteFaq = (id) => apiHandler(() => API.delete(`/setting/deleteFaq?faqId=${id}`));
+const deleteReview = (id) => apiHandler(() => API.delete(`/admin/deleteReview?reviewId=${id}`));
 
 const getFaqById = (id) =>
   apiHandler(() => API.get(`/faq/getSingleFaq?faqId=${id}`));
@@ -266,6 +277,7 @@ export const api = {
   getAllCategories,
   getAllUsers,
   deleteFaq,
+  deleteReview,
   createProduct,
   createCategory,
   createGame,
@@ -288,5 +300,7 @@ export const api = {
   getFaqById,
   updateGame,
   getAllQuote,
-  getAllCheckout
+  getAllCheckout,
+  getAllReviews,
+  updateStatus
 };

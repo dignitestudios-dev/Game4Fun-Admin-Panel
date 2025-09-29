@@ -25,6 +25,7 @@ import { Toaster } from "react-hot-toast";
 import FAQ from "./pages/FAQ";
 import Quote from "./pages/Quote";
 import Checkouts from "./pages/Checkout";
+import Reviews from "./pages/Reviews";
 
 function App() {
   return (
@@ -68,6 +69,7 @@ function App() {
                           <Route path="/faq" element={<FAQ />} />
                           <Route path="/quotes" element={<Quote />} />
                           <Route path="/checkouts" element={<Checkouts />} />
+                          <Route path="/reviews" element={<Reviews />} />
 
                           <Route path="/settings">
                             <Route
