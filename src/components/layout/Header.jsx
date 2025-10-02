@@ -8,13 +8,11 @@ import { Link } from "react-router-dom";
 const Header = () => {
   const { user, logout } = useAuth();
   const { theme, toggleTheme, canToggleTheme } = useTheme();
-  const { markNotificationAsRead, sidebarOpen, toggleMobileSidebar } = useApp();
+  const { sidebarOpen, toggleMobileSidebar } = useApp();
 
   const [showUserMenu, setShowUserMenu] = useState(false);
 
   const userMenuRef = useRef(null);
-
-  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
@@ -34,9 +32,7 @@ const Header = () => {
   return (
     <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-4 lg:px-6 py-4 h-20">
       <div className="flex items-center justify-between">
-        {/* Left side - Mobile menu button and search */}
         <div className="flex items-center space-x-4 flex-1">
-          {/* Mobile menu button */}
           <button
             onClick={toggleMobileSidebar}
             className="lg:hidden p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
@@ -48,10 +44,7 @@ const Header = () => {
             )}
           </button>
         </div>
-
-        {/* Right side - Actions and user menu */}
         <div className="flex items-center space-x-3">
-          {/* Theme toggle */}
           {canToggleTheme && (
             <button
               onClick={toggleTheme}
@@ -65,8 +58,6 @@ const Header = () => {
               )}
             </button>
           )}
-
-          {/* User menu */}
           <div className="relative" ref={userMenuRef}>
             <button
               onClick={() => setShowUserMenu(!showUserMenu)}

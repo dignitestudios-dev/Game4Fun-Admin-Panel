@@ -364,7 +364,7 @@ const handleQuoteExport = (data) => {
         </Modal>
 
         {/* View Product Modal */}
-      <Modal
+     <Modal
   isOpen={showViewFaqModal}
   onClose={() => setShowViewFaqModal(false)}
   title="Quote Details"
@@ -374,50 +374,103 @@ const handleQuoteExport = (data) => {
     {/* Header */}
     <div className="border-b border-gray-200 dark:border-gray-700 pb-4">
       <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-        {viewQuote?.fullName}
+        {viewQuote?.fullName || "N/A"}
       </h1>
-      <p className="text-sm text-gray-500">{viewQuote?.emailAddress}</p>
+      <p className="text-sm text-gray-500">
+        {viewQuote?.emailAddress || "N/A"}
+      </p>
     </div>
 
     {/* Quote Info Grid */}
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700 dark:text-gray-300">
       <div>
         <span className="font-semibold">Min Budget:</span>{" "}
-        {formatCurrency(viewQuote?.minBudgetRange)}
+        {viewQuote?.minBudgetRange !== undefined
+          ? formatCurrency(viewQuote.minBudgetRange)
+          : "N/A"}
       </div>
       <div>
         <span className="font-semibold">Max Budget:</span>{" "}
-        {formatCurrency(viewQuote?.maxBudgetRange)}
+        {viewQuote?.maxBudgetRange !== undefined
+          ? formatCurrency(viewQuote.maxBudgetRange)
+          : "N/A"}
       </div>
       <div>
-        <span className="font-semibold">CPU:</span> {viewQuote?.preferredCPUBrand}
+        <span className="font-semibold">CPU:</span>{" "}
+        {viewQuote?.preferredCPUBrand || "N/A"}
       </div>
       <div>
-        <span className="font-semibold">GPU:</span> {viewQuote?.preferredGPUBrand}
+        <span className="font-semibold">GPU:</span>{" "}
+        {viewQuote?.preferredGPUBrand || "N/A"}
       </div>
       <div>
-        <span className="font-semibold">RAM:</span> {viewQuote?.ram}
+        <span className="font-semibold">RAM:</span> {viewQuote?.ram || "N/A"}
       </div>
       <div>
-        <span className="font-semibold">Storage:</span> {viewQuote?.storage}
+        <span className="font-semibold">Storage:</span>{" "}
+        {viewQuote?.storage || "N/A"}
+      </div>
+      <div>
+        <span className="font-semibold">Motherboard:</span>{" "}
+        {viewQuote?.motherboard || "N/A"}
+      </div>
+      <div>
+        <span className="font-semibold">Cooling:</span>{" "}
+        {viewQuote?.cooling || "N/A"}
+      </div>
+      <div>
+        <span className="font-semibold">PSU:</span> {viewQuote?.psu || "N/A"}
+      </div>
+      <div>
+        <span className="font-semibold">Case Size:</span>{" "}
+        {viewQuote?.caseSize || "N/A"}
+      </div>
+      <div>
+        <span className="font-semibold">Case Color:</span>{" "}
+        {viewQuote?.caseColor || "N/A"}
+      </div>
+      <div>
+        <span className="font-semibold">Case Style:</span>{" "}
+        {viewQuote?.caseStyle || "N/A"}
+      </div>
+      <div>
+        <span className="font-semibold">Monitor Resolution:</span>{" "}
+        {viewQuote?.monitorResolution || "N/A"}
+      </div>
+      <div className="sm:col-span-2">
+        <span className="font-semibold">Games:</span>{" "}
+        {viewQuote?.games
+          ? viewQuote.games.split(",").map((game, idx) => (
+              <span key={idx} className="inline-block bg-gray-200 dark:bg-gray-700 rounded px-2 py-1 text-xs mr-2 mb-2">
+                {game.trim()}
+              </span>
+            ))
+          : "N/A"}
+      </div>
+      <div className="sm:col-span-2">
+        <span className="font-semibold">Desired Graphics Setting & FPS:</span>{" "}
+        {viewQuote?.graphicsSetting || "N/A"}
       </div>
       <div className="sm:col-span-2">
         <span className="font-semibold">Additional Feature:</span>{" "}
-        {viewQuote?.additionalFeature}
+        {viewQuote?.additionalFeature || "N/A"}
       </div>
     </div>
 
     {/* Metadata */}
     <div className="border-t border-gray-200 dark:border-gray-700 pt-4 text-sm text-gray-500 dark:text-gray-400 space-y-1">
       <p>
-        <strong>Created:</strong> {formatDate(viewQuote?.createdAt)}
+        <strong>Created:</strong>{" "}
+        {viewQuote?.createdAt ? formatDate(viewQuote.createdAt) : "N/A"}
       </p>
       <p>
-        <strong>Last Updated:</strong> {formatDate(viewQuote?.updatedAt)}
+        <strong>Last Updated:</strong>{" "}
+        {viewQuote?.updatedAt ? formatDate(viewQuote.updatedAt) : "N/A"}
       </p>
     </div>
   </div>
 </Modal>
+
 
       </div>
     </div>
